@@ -1,0 +1,38 @@
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+screenGui.Name = "MoveGui"
+
+-- Yukarı Butonu
+local upButton = Instance.new("TextButton")
+upButton.Name = "UpButton"
+upButton.Size = UDim2.new(0, 100, 0, 50)
+upButton.Position = UDim2.new(0.5, -110, 0.8, 0)
+upButton.Text = "Yukarı"
+upButton.BackgroundColor3 = Color3.fromRGB(100, 200, 100)
+upButton.TextScaled = true
+upButton.Parent = screenGui
+
+-- Aşağı Butonu
+local downButton = Instance.new("TextButton")
+downButton.Name = "DownButton"
+downButton.Size = UDim2.new(0, 100, 0, 50)
+downButton.Position = UDim2.new(0.5, 10, 0.8, 0)
+downButton.Text = "Aşağı"
+downButton.BackgroundColor3 = Color3.fromRGB(200, 100, 100)
+downButton.TextScaled = true
+downButton.Parent = screenGui
+
+-- Butonlara işlev ekleme
+local function moveCharacter(offset)
+	local character = player.Character or player.CharacterAdded:Wait()
+	local hrp = character:WaitForChild("HumanoidRootPart")
+	hrp.CFrame = hrp.CFrame + Vector3.new(0, offset, 0)
+end
+
+upButton.MouseButton1Click:Connect(function()
+	moveCharacter(10)
+end)
+
+downButton.MouseButton1Click:Connect(function()
+	moveCharacter(-10)
+end)
